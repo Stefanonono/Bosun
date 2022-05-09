@@ -6,13 +6,14 @@ public class CharacterController2D : MonoBehaviour
 	public GameObject interactIcon;
 	private Animator anim;
 	public string popUp;
-	
+	public  bool canMove = true;
 	private Vector2 boxSize = new Vector2(0.1f,1f);
 	
 	private void Start()
 	{
 		interactIcon.SetActive(false);
 		anim = GetComponent<Animator>();
+		canMove = true;
 	}
 
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
@@ -55,6 +56,11 @@ public class CharacterController2D : MonoBehaviour
 
 	void Update()
 	{
+		if(!canMove)
+		{
+			m_Rigidbody2D.velocity = Vector2.zero;
+			return;
+		}
 		if (Input.GetKeyDown(KeyCode.E))
 			{
 				CheckInteraction();
